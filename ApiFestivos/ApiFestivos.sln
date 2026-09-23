@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "apiFestivos.dominio", "..\a
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "apiFestivos.infraestructura", "..\apiFestivos.infraestructura\apiFestivos.infraestructura.csproj", "{A2EA6CF7-2814-44DC-B206-59AA3B5DFD49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "apiFestivos.core", "..\apiFestivos.core\apiFestivos.core.csproj", "{49D51B20-7702-4C69-91C7-30E4469D2369}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{A2EA6CF7-2814-44DC-B206-59AA3B5DFD49}.Release|x64.Build.0 = Release|Any CPU
 		{A2EA6CF7-2814-44DC-B206-59AA3B5DFD49}.Release|x86.ActiveCfg = Release|Any CPU
 		{A2EA6CF7-2814-44DC-B206-59AA3B5DFD49}.Release|x86.Build.0 = Release|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Debug|x64.Build.0 = Debug|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Debug|x86.Build.0 = Debug|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Release|x64.ActiveCfg = Release|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Release|x64.Build.0 = Release|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Release|x86.ActiveCfg = Release|Any CPU
+		{49D51B20-7702-4C69-91C7-30E4469D2369}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

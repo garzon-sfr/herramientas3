@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\apiFestivos.dominio\apiFestivos.dominio.csproj" />
+    <ProjectReference Include="..\apiFestivos.core\apiFestivos.core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

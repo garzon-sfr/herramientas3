@@ -37,13 +37,13 @@ namespace apiFestivos.infraestructura.Persistencia
 
             constructor.Entity<Festivo>()
                 .HasOne(e => e.Pais)
-                .WithMany()
-                .HasForeignKey(e => e.IdPais); // Clave foránea
+                .WithMany(e => e.Festivos)
+                .HasForeignKey(e => e.IdPais);
 
             constructor.Entity<Festivo>()
                 .HasOne(e => e.TipoFestivo)
-                .WithMany()
-                .HasForeignKey(e => e.IdTipo); // Clave foránea
+                .WithMany(e => e.Festivos)
+                .HasForeignKey(e => e.IdTipo);
         }
     }
 }
