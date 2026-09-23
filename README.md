@@ -12,5 +12,5 @@ Este repositorio contiene las actividades, prácticas y proyectos desarrollados 
 
 ## 📂 Contenido del Repositorio
 
-Primer commit Entrega de .Dominio y .contexto 
-Segundo Commit entrega de .Core(Respositorios y Servicios) y Repositorios en .infraestructura
+* Primer commit Entrega de .Dominio y .contexto 
+* Segundo Commit entrega de .Core(Respositorios y Servicios) y Repositorios en .infraestructura
