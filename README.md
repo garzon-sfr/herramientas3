@@ -12,4 +12,5 @@ Este repositorio contiene las actividades, prácticas y proyectos desarrollados 
 
 ## 📂 Contenido del Repositorio
 
-Aquí encontrarás los talleres, entregables y código fuente organizados según el avance del plan formativo del curso.
+Primer commit Entrega de .Dominio y .contexto 
+Segundo Commit entrega de .Core(Respositorios y Servicios) y Repositorios en .infraestructura
