@@ -1,4 +1,5 @@
-﻿using apiFestivos.dominio;
+using apiFestivos.dominio;
+using apiFestivos.dominio.Dtos;
 
 namespace apiFestivos.core.servicios
 {
@@ -18,5 +19,9 @@ namespace apiFestivos.core.servicios
         Task<Festivo?> Modificar(Festivo Festivo);
 
         Task<bool> Eliminar(int Id);
+
+        Task<IEnumerable<FestivoFechaDto>> ObtenerFestivos(int IdPais, int Año);
+
+        Task<bool> EsFestivo(int IdPais, int Año, int Mes, int Dia);
     }
 }

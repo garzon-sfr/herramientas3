@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace apiFestivos.dominio
 {
@@ -15,8 +16,9 @@ namespace apiFestivos.dominio
         public int Id { get; set; }
 
         [Column("Tipo")]
-        public required string Tipo { get; set; }
+        public required string? Tipo { get; set; }
 
+        [JsonIgnore]
         public ICollection<Festivo>? Festivos { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+using apiFestivos.core.Excepciones;
 using Microsoft.EntityFrameworkCore;
 using apiFestivos.core.repositorios;
 using apiFestivos.dominio;
@@ -34,7 +34,7 @@ namespace apiFestivos.infraestructura.Repositorios
             {
                 case 1:
                     consulta = consulta.Where(
-                        e => e.Tipo.Contains(Texto));
+                        e => e.Tipo != null && e.Tipo.Contains(Texto));
                     break;
 
                 default:
@@ -46,6 +46,9 @@ namespace apiFestivos.infraestructura.Repositorios
 
         public async Task<TipoFestivo> Agregar(TipoFestivo TipoFestivo)
         {
+            if (await contexto.TiposFestivo.AnyAsync(e => e.Tipo == TipoFestivo.Tipo))
+                throw new ConflictoException("Ya existe un registro con ese Tipo.");
+
             contexto.TiposFestivo.Add(TipoFestivo);
             await contexto.SaveChangesAsync();
             return TipoFestivo;
@@ -59,6 +62,9 @@ namespace apiFestivos.infraestructura.Repositorios
             if (entidad == null)
                 return null;
 
+            if (await contexto.TiposFestivo.AnyAsync(e => e.Id != TipoFestivo.Id && e.Tipo == TipoFestivo.Tipo))
+                throw new ConflictoException("Ya existe un registro con ese Tipo.");
+
             entidad.Tipo = TipoFestivo.Tipo;
 
             await contexto.SaveChangesAsync();
@@ -71,6 +77,9 @@ namespace apiFestivos.infraestructura.Repositorios
 
             if (entidad == null)
                 return false;
+
+            if (await contexto.Festivos.AnyAsync(f => f.IdTipo == Id))
+                throw new ConflictoException("No se puede eliminar el registro porque tiene festivos asociados.");
 
             contexto.TiposFestivo.Remove(entidad);
             await contexto.SaveChangesAsync();

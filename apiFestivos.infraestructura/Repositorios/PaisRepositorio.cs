@@ -1,4 +1,4 @@
-﻿
+using apiFestivos.core.Excepciones;
 using Microsoft.EntityFrameworkCore;
 using apiFestivos.core.repositorios;
 using apiFestivos.dominio;
@@ -34,7 +34,7 @@ namespace apiFestivos.infraestructura.Repositorios
             {
                 case 1:
                     consulta = consulta.Where(
-                        e => e.Nombre.Contains(Texto));
+                        e => e.Nombre != null && e.Nombre.Contains(Texto));
                     break;
 
                 default:
@@ -46,6 +46,9 @@ namespace apiFestivos.infraestructura.Repositorios
 
         public async Task<Pais> Agregar(Pais Pais)
         {
+            if (await contexto.Paises.AnyAsync(e => e.Nombre == Pais.Nombre))
+                throw new ConflictoException("Ya existe un registro con ese Nombre.");
+
             contexto.Paises.Add(Pais);
             await contexto.SaveChangesAsync();
             return Pais;
@@ -57,6 +60,9 @@ namespace apiFestivos.infraestructura.Repositorios
 
             if (entidad == null)
                 return null;
+
+            if (await contexto.Paises.AnyAsync(e => e.Id != Pais.Id && e.Nombre == Pais.Nombre))
+                throw new ConflictoException("Ya existe un registro con ese Nombre.");
 
             entidad.Nombre = Pais.Nombre;
 
@@ -70,6 +76,9 @@ namespace apiFestivos.infraestructura.Repositorios
 
             if (entidad == null)
                 return false;
+
+            if (await contexto.Festivos.AnyAsync(f => f.IdPais == Id))
+                throw new ConflictoException("No se puede eliminar el registro porque tiene festivos asociados.");
 
             contexto.Paises.Remove(entidad);
             await contexto.SaveChangesAsync();

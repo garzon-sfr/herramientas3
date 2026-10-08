@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.EntityFrameworkCore;
 using apiFestivos.core.repositorios;
 using apiFestivos.dominio;
@@ -41,7 +41,7 @@ namespace apiFestivos.infraestructura.Repositorios
             {
                 case 1:
                     consulta = consulta.Where(
-                        e => e.Nombre.Contains(Texto));
+                        e => e.Nombre != null && e.Nombre.Contains(Texto));
                     break;
 
                 default:
