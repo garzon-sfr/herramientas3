@@ -1,6 +1,25 @@
-@ApiFestivos_HostAddress = http://localhost:5148
+@ApiFestivos_HostAddress = https://localhost:7041
 
-GET {{ApiFestivos_HostAddress}}/weatherforecast/
-Accept: application/json
+### Catálogos
+GET {{ApiFestivos_HostAddress}}/api/paises
 
-###
+### Tipos
+GET {{ApiFestivos_HostAddress}}/api/tiposfestivo
+
+### Definiciones
+GET {{ApiFestivos_HostAddress}}/api/festivos
+
+### Corpus Christi: Es Festivo
+GET {{ApiFestivos_HostAddress}}/api/calendario/verificar/1/2023/6/12
+
+### No es festivo
+GET {{ApiFestivos_HostAddress}}/api/calendario/verificar/1/2023/2/28
+
+### Fecha No valida: HTTP 400
+GET {{ApiFestivos_HostAddress}}/api/calendario/verificar/1/2023/2/35
+
+### Calendario anual
+GET {{ApiFestivos_HostAddress}}/api/calendario/festivos/1/2023
+
+### Endpoint original de la plantilla
+GET {{ApiFestivos_HostAddress}}/weatherforecast
