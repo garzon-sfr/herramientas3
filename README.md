@@ -50,30 +50,7 @@ La conexión en `ApiFestivos/appsettings.json` usa:
 ```text
 Server=GARZON;Database=Festivos;Integrated Security=True;Encrypt=True;TrustServerCertificate=True
 ```
-
-Es la instancia y autenticación confirmadas por el propietario del proyecto.
-`TrustServerCertificate=True` corresponde a este servidor local. En un despliegue
-con certificado válido, utilizar `TrustServerCertificate=False`. No hay contraseñas
-en el repositorio. En otro equipo puede sobrescribirse la conexión con la variable
-de entorno `ConnectionStrings__Festivos`.
-
-La API **no recrea la base ni ejecuta migraciones o semillas al iniciar**.
-`database/Inspeccionar.sql` permite revisar las tablas y datos. Si faltan las tablas
-o los datos iniciales, revisar y ejecutar `database/PrepararFestivos.sql` desde SSMS
-sobre la base **Festivos**: agrega lo que falta sin eliminar ni actualizar registros.
-No es necesario ejecutarlo si el esquema y los datos ya están completos.
-
-El esquema compartido desde SSMS confirma `dbo.Pais`, `dbo.TipoFestivo` y
-`dbo.Festivo`. Sus columnas, salvo Id, admiten NULL; el modelo EF se adaptó a esa
-nulabilidad manteniendo los nombres y las clases. Los contratos de escritura de la
-API exigen nombres y relaciones válidos. Para los cálculos, un valor nulo en los
-campos opcionales de fecha se interpreta como 0; una fecha fija incompleta se
-rechaza con un mensaje de validación. Los Id se consideran autogenerados.
-No se hacen cambios automáticos sobre tablas preexistentes.
-
-Los datos compartidos ya incluyen los 19 registros de Colombia (Id=1), otros 20
-países y un tipo 5 usado por Ecuador. No es necesario cargar de nuevo Colombia.
-El usuario confirmó que todavía no se ha definido la fórmula del tipo 5.
+'''scrip SQL llamada Festivos para crear base de datos en propia maquina'''
 
 ### Endpoints
 
@@ -117,21 +94,7 @@ Ejemplo de festivo basado en Pascua:
 3. Tipo 3: domingo de Pascua más DiasPascua.
 4. Tipo 4: cálculo anterior y traslado al lunes.
 
-Se conserva la fórmula académica facilitada por el docente; no se sustituye por otro
-algoritmo de Pascua. Su aceptación de años 1..9999 es un límite técnico, no una
-garantía de exactitud histórica de esa fórmula para todos los siglos.
-Los catálogos y las definiciones permiten gestionar también el tipo 5 existente
-(`Ley Puente Festivo Viernes`). Los únicos IdTipo con algoritmo definido son 1..4.
-Para un calendario o verificación que dependa del tipo 5 u otro tipo adicional, la
-API devuelve HTTP 409 con `Regla de cálculo pendiente`, sin inventar fechas ni
-omitir celebraciones. Definir la regla del tipo 5 con el docente queda pendiente;
-Colombia funciona con sus cuatro tipos definidos. Los registros asociados impiden
-eliminar un país o tipo. La lista conserva celebraciones que coinciden y contempla
-traslados entre años y el 29 de febrero.
-
-Los datos del PDF son 19 registros para Colombia, incluido Domingo de Pascua.
-Se conservan sus desplazamientos 40, 61 y 68 para Ascensión, Corpus Christi y
-Sagrado Corazón. Casos de comprobación:
+Casos de comprobación:
 
 ```text
 GET /api/calendario/verificar/1/2023/6/12  -> Es Festivo
@@ -154,14 +117,3 @@ Auditoría de dependencias directas y transitivas:
 ```powershell
 dotnet list .\ApiFestivos\ApiFestivos.sln package --vulnerable --include-transitive
 ```
-
-El entorno aislado de Codex no pudo usar la autenticación integrada ni la clave
-privada del certificado HTTPS de Windows. La compilación y las pruebas aisladas
-no sustituyen la comprobación final contra la base existente desde Visual Studio
-o PowerShell de la sesión del usuario. Las columnas y los primeros registros se
-contrastaron con la salida de SSMS compartida por el propietario. Probar la conexión
-y las consultas anteriores en Swagger antes de entregar.
-
-Pendiente por decisión del propietario: revisar el diff, autorizar commit/push y
-enviar al docente el enlace del repositorio con los integrantes. No se realizan
-commits, push ni envío de correo automáticamente.
