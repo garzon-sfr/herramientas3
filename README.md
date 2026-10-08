@@ -18,26 +18,6 @@ Aquí encontrarás los talleres, entregables y código fuente organizados según
 
 API REST en .NET 10. La solución permanece en `ApiFestivos/ApiFestivos.sln`.
 
-### Arquitectura
-
-Se conserva el patrón del proyecto de referencia del docente:
-controlador → interfaz de servicio → servicio de aplicación → interfaz de repositorio
-→ repositorio de infraestructura → Entity Framework Core → SQL Server.
-
-| Proyecto | Responsabilidad |
-| --- | --- |
-| ApiFestivos | Controladores REST, solicitudes, Swagger, configuración e inyección de dependencias |
-| apiFestivos.dominio | Pais, TipoFestivo, Festivo y DTO del calendario |
-| apiFestivos.core | Interfaces de repositorios y servicios, excepción de conflicto |
-| apiFestivos.aplicacion | Servicios CRUD, validaciones y ServicioFechas |
-| apiFestivos.infraestructura | FestivosContext y repositorios existentes |
-| apiFestivos.pruebas | Pruebas de cálculo e integración HTTP con SQLite aislado |
-
-Los namespaces existentes se mantienen. El endpoint original `/weatherforecast` y
-`/openapi/v1.json` en desarrollo siguen disponibles. La carpeta vacía original
-`ApiFestivos/apiFestivos.core` se conserva y se excluye de la compilación web para
-evitar que sus archivos generados interfieran con el proyecto real de core.
-
 ### Ejecución local
 
 Requisitos: SDK de .NET 10 y acceso a SQL Server desde la cuenta de Windows.
