@@ -102,18 +102,3 @@ GET /api/calendario/verificar/1/2023/2/28  -> No es festivo
 GET /api/calendario/verificar/1/2023/2/35  -> HTTP 400, Fecha No valida
 GET /api/calendario/festivos/1/2023       -> 19 entradas con los datos del PDF
 ```
-
-### Validación y entrega
-
-Validación realizada: 49 pruebas correctas, 0 errores y 0 advertencias de compilación; auditoría sin paquetes vulnerables reportados.
-
-Las pruebas usan EF Core con SQLite en memoria y no modifican `GARZON/Festivos`.
-Comprueban los cuatro modos, el ejemplo de Pascua de 1999, el calendario completo
-de 2023, fechas inválidas, bisiestos, cruces de año, relaciones, CRUD y Swagger.
-El proveedor de producción sigue siendo SQL Server.
-
-Auditoría de dependencias directas y transitivas:
-
-```powershell
-dotnet list .\ApiFestivos\ApiFestivos.sln package --vulnerable --include-transitive
-```
