@@ -16,9 +16,13 @@ En este repositorio se encuentran los talleres, actividades y entregables corres
 
 ---
 
-# ApiFestivos — Evaluación del 20 %
+## Entregas realizadas
 
-**Fecha de entrega:** 8 de octubre de 2026
+**Primera entrega**: desarrollo de la capa de Dominio y del contexto de base de datos.
+
+**Segunda entrega**: desarrollo de la capa Core, incluyendo las interfaces de repositorios y servicios, junto con la implementación de repositorios en Infraestructura.
+
+**Entrega final — 8 de octubre de 2026**: presentación de la aplicación completa, integración de sus componentes, consulta y cálculo de días festivos, y disponibilidad de las operaciones mediante Swagger.
 
 ## Presentación del proyecto
 
