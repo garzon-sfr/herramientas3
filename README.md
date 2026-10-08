@@ -2,103 +2,101 @@
 
 Este repositorio contiene las actividades, prácticas y proyectos desarrollados en la asignatura **Herramientas 3**, correspondiente al programa de **Ingeniería de Software** de la **Institución Universitaria Pascual Bravo**.
 
-## 📌 Información General
+## Información general
 
-* **Estudiante** Andres Felipe Ramirez Gazron
-* **Institución:** Institución Universitaria Pascual Bravo
-* **Programa:** Ingeniería de Software
-* **Asignatura:** Herramientas 3
-* **Docente:** Frain León Osorio Rivera
+- **Estudiante:** Andrés Felipe Ramírez Garzón
+- **Institución:** Institución Universitaria Pascual Bravo
+- **Programa:** Ingeniería de Software
+- **Asignatura:** Herramientas 3
+- **Docente:** Frain León Osorio Rivera
 
-## 📂 Contenido del Repositorio
+## Contenido del repositorio
 
-Aquí encontrarás los talleres, entregables y código fuente organizados según el avance del plan formativo del curso.
+En este repositorio se encuentran los talleres, actividades y entregables correspondientes al desarrollo de la asignatura.
 
-## ApiFestivos - entrega de aplicación y presentación
+---
 
-API REST en .NET 10. La solución permanece en `ApiFestivos/ApiFestivos.sln`.
+# ApiFestivos — Evaluación del 20 %
 
-### Ejecución local
+**Fecha de entrega:** 8 de octubre de 2026
 
-Requisitos: SDK de .NET 10 y acceso a SQL Server desde la cuenta de Windows.
-Desde la raíz `Evaluacion1`, ejecutar en PowerShell:
+## Presentación del proyecto
+
+**ApiFestivos** es una aplicación REST desarrollada en .NET 10 que permite administrar y consultar los días festivos de diferentes países, considerando las reglas establecidas para determinar sus fechas.
+
+La aplicación permite registrar países, tipos de festivos y días festivos, consultar el calendario anual y verificar si una fecha específica corresponde a un día festivo.
+
+## Contenido de la entrega
+
+El proyecto comprende las siguientes capas:
+
+- **Dominio:** entidades y relaciones del sistema.
+- **Core:** interfaces de repositorios y servicios.
+- **Infraestructura:** persistencia y acceso a la base de datos.
+- **Aplicación:** implementación de la lógica de negocio y cálculo de festivos.
+- **Presentación:** API REST disponible para su ejecución y comprobación mediante Swagger.
+
+También se incluye el **script SQL de la base de datos Festivos**, que permite preparar la base de datos en otro equipo.
+
+## Ejecución local
+
+**Requisitos:** .NET SDK 10 y SQL Server.
+
+La solución se encuentra en `ApiFestivos/ApiFestivos.sln`.
+
+Desde la carpeta raíz del proyecto, ejecutar:
 
 ```powershell
 dotnet restore .\ApiFestivos\ApiFestivos.sln
-dotnet build .\ApiFestivos\ApiFestivos.sln --no-restore
-dotnet test .\ApiFestivos\ApiFestivos.sln --no-build --no-restore
+dotnet build .\ApiFestivos\ApiFestivos.sln
 dotnet run --project .\ApiFestivos\ApiFestivos.csproj --launch-profile https
 ```
 
-Swagger: https://localhost:7041/swagger/index.html
+Una vez iniciada la aplicación, acceder a Swagger:
 
-Si falta la confianza del certificado de desarrollo, ejecutar una vez en la sesión
-normal de Windows `dotnet dev-certs https --trust`. También se puede iniciar con
-`--launch-profile http` y abrir http://localhost:5148/swagger/index.html.
+**https://localhost:7041/swagger/index.html**
 
-Los puertos quedan guardados en el proyecto. `ApiFestivos/appsettings.json`, en
-`Servidor:UrlPredeterminada`, establece `http://localhost:5148` para iniciar sin un
-perfil. `ApiFestivos/Properties/launchSettings.json` mantiene HTTP 5148 y HTTPS 7041
-en `applicationUrl` de los perfiles respectivos. Para cambiar permanentemente un
-puerto, actualizar esos valores y reiniciar la API; Postman debe usar el mismo puerto.
-No es necesario pasar `--urls` al ejecutar.
+También está disponible el perfil HTTP:
 
-### Base de datos existente
+**http://localhost:5148/swagger/index.html**
 
-La conexión en `ApiFestivos/appsettings.json` usa:
+Antes de ejecutar, importar el script SQL incluido en el repositorio y configurar la conexión a SQL Server en `ApiFestivos/appsettings.json`, de acuerdo con el servidor local.
 
-```text
-Server=GARZON;Database=Festivos;Integrated Security=True;Encrypt=True;TrustServerCertificate=True
-```
-'''scrip SQL llamada Festivos para crear base de datos en propia maquina'''
+## Funcionalidades y endpoints
 
-### Endpoints
+| Recurso | Endpoint principal | Funcionalidad |
+|---|---|---|
+| Países | `/api/paises` | Consultar, registrar, modificar y eliminar países |
+| Tipos de festivos | `/api/tiposfestivo` | Administrar los tipos de festivos |
+| Festivos | `/api/festivos` | Administrar las definiciones de festivos |
+| Festivos por país | `/api/festivos/pais/{IdPais}` | Consultar festivos de un país |
+| Calendario anual | `/api/calendario/festivos/{IdPais}/{Año}` | Obtener los festivos de un año |
+| Verificación de fecha | `/api/calendario/verificar/{IdPais}/{Año}/{Mes}/{Dia}` | Determinar si una fecha es festiva |
 
-| Método | Ruta | Resultado |
-| --- | --- | --- |
-| GET / POST | `/api/paises` | Listar / crear países |
-| GET / PUT / DELETE | `/api/paises/{Id}` | Consultar / modificar / eliminar |
-| GET / POST | `/api/tiposfestivo` | Listar / crear tipos |
-| GET / PUT / DELETE | `/api/tiposfestivo/{Id}` | Consultar / modificar / eliminar |
-| GET / POST | `/api/festivos` | Listar / crear definiciones de festivos |
-| GET / PUT / DELETE | `/api/festivos/{Id}` | Consultar / modificar / eliminar |
-| GET | `/api/{recurso}/buscar/1/{Texto}` | Buscar por Nombre, o Tipo en tiposfestivo |
-| GET | `/api/festivos/pais/{IdPais}` | Definiciones de un país |
-| GET | `/api/calendario/festivos/{IdPais}/{Año}` | Listado anual ordenado, con festivo y fecha |
-| GET | `/api/calendario/verificar/{IdPais}/{Año}/{Mes}/{Dia}` | Es Festivo / No es festivo |
+La aplicación dispone de operaciones **GET, POST, PUT y DELETE**, según el recurso, que pueden probarse directamente desde Swagger.
 
-POST devuelve 201 y la ubicación del registro; DELETE devuelve 204; los registros
-inexistentes devuelven 404; los datos inválidos, 400; los conflictos de integridad,
-409. Los errores de acceso a SQL Server se informan sin devolver detalles internos.
-La fecha inválida devuelve HTTP 400 con título `Fecha No valida`, en lugar del 200
-de la captura del enunciado. Los cuerpos POST/PUT no contienen Id ni navegaciones.
+## Reglas de cálculo de festivos
 
-Ejemplo de festivo fijo:
+El sistema contempla cuatro modalidades:
 
-```json
-{ "idPais": 1, "nombre": "Festivo de ejemplo", "dia": 15, "mes": 5, "diasPascua": 0, "idTipo": 1 }
-```
+1. **Fecha fija:** conserva el día y mes establecidos.
+2. **Fecha trasladable:** traslada el festivo al lunes siguiente, si corresponde.
+3. **Basado en Pascua:** calcula la fecha a partir del Domingo de Pascua.
+4. **Basado en Pascua trasladable:** calcula la fecha respecto a Pascua y la traslada al lunes correspondiente.
 
-Ejemplo de festivo basado en Pascua:
+Estas reglas permiten generar calendarios de festivos y verificar fechas de acuerdo con el país seleccionado.
 
-```json
-{ "idPais": 1, "nombre": "Jueves Santo", "dia": 0, "mes": 0, "diasPascua": -3, "idTipo": 3 }
-```
+## Entregas realizadas
 
-`ApiFestivos/ApiFestivos.http` contiene las consultas del enunciado.
+**Primera entrega:** desarrollo de la capa de Dominio y contexto de base de datos.
 
-### Reglas de cálculo
+**Segunda entrega:** desarrollo de Core, interfaces de repositorios y servicios, e implementación de repositorios en Infraestructura.
 
-1. Tipo 1: fecha fija.
-2. Tipo 2: siguiente lunes; si ya es lunes, se conserva.
-3. Tipo 3: domingo de Pascua más DiasPascua.
-4. Tipo 4: cálculo anterior y traslado al lunes.
+**Entrega final — 8 de octubre de 2026:** integración de la aplicación, implementación de servicios, controladores, cálculo de festivos y presentación funcional mediante Swagger.
 
-Casos de comprobación:
 
-```text
-GET /api/calendario/verificar/1/2023/6/12  -> Es Festivo
-GET /api/calendario/verificar/1/2023/2/28  -> No es festivo
-GET /api/calendario/verificar/1/2023/2/35  -> HTTP 400, Fecha No valida
-GET /api/calendario/festivos/1/2023       -> 19 entradas con los datos del PDF
-```
+---
+
+**Institución Universitaria Pascual Bravo**  
+**Ingeniería de Software — Herramientas 3**  
+**Octubre de 2026**
